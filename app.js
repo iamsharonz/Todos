@@ -40,12 +40,22 @@ list.addEventListener("click", (e) => {
 // function for searching the typed term among the todos
 
 const filterTodos = (typedWord) => {
-  Array.from(list.children); // here list refer to the ul tag & all the todos, i.e the li tags are the childrens, but this will be displayed as an HTML collection only, so we need to convert it into an array to perform the array methods like forEach(), filter etc
+
+  Array.from(list.children) // here list refer to the ul tag & all the todos, i.e the li tags are the childrens, but this will be displayed as an HTML collection only, so we need to convert it into an array to perform the array methods like forEach(), filter etc
+   .filter((todo) => !todo.textContent.toLowerCase().includes(typedWord)) // exclamatory sign is used coz we will get the opposite of it, i.e. we will get the list of todos which doesnt cotains the searched word or letter
+   // toLowerCase() is used in this line, coz if a user saves a todo in CAPS & then if he tries to find that todo using small letter then the match wont be showing up due to the strict equality checking in js
+   .forEach((todo) => todo.classList.add('filtered')); // arrow functions written without curly braces
+      
+   // but after removing the typed word/letter the added class i.e. filtered class is not removed, so we need to add one more filter method to it
+
+  Array.from(list.children) 
+  .filter((todo) => todo.textContent.toLowerCase().includes(typedWord)) // this filter method will catch the todos which contain the seached word or letter
+  .forEach((todo) => todo.classList.remove('filtered'));
 };
 
-// on typing each word in the input field the event listener should listen for each
+// on typing each word in the input field the event listener should listen for each. keyup event
 search.addEventListener("keyup", () => {
-  const typedWord = search.value.trim();
+  const typedWord = search.value.trim().toLowerCase(); // toLowerCase is given here as if the user searches for a todo in capitals then that todo wont show up due to the strict equality in js
 
   filterTodos(typedWord);
 });

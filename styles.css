@@ -21,3 +21,7 @@ input:focus {
   cursor: pointer;
   /* to make the cursor as a pointing finger */
 }
+.filtered{
+  display: none !important; 
+  /* important will override all previous styles & will give more importance to the specified property */
+}
